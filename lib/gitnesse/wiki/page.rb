@@ -58,9 +58,7 @@ module Gitnesse
       #
       # Returns nothing
       def append_result(scenario, status, subtitle = nil)
-        scheme = Gitnesse::Config.instance.image_scheme
-        scheme += ':' unless scheme.nil?
-        image = "![](#{scheme.to_s}//s3.amazonaws.com/gitnesse/github/#{status.to_s}.png)"
+        image = "![](#{image_scheme}//s3.amazonaws.com/gitnesse/github/#{status.to_s}.png)"
         #image = "![](//s3.amazonaws.com/gitnesse/github/#{status.to_s}.png)"
 
         time = Time.now.strftime("%b %d, %Y, %-l:%M %p")
@@ -106,6 +104,22 @@ module Gitnesse
       #   get_filename #=> "thing.feature"
       def get_filename
         File.basename(@wiki_path, '.md').scan(/(\w+\.feature)$/).flatten.first
+      end
+
+      # Protected: Get a usable image scheme from the configuration
+      #
+      # Returns a string containing the configured image scheme (or empty)
+      #
+      # Examples:
+      #
+      #   image_scheme => ''
+      #   Config.instance.image_scheme = 'http'
+      #   image_scheme => 'http:'
+      #   Config.instance.image_scheme = 'https'
+      #   image_scheme => 'https:
+      def image_scheme
+        scheme = Config.instance.image_scheme
+        scheme.nil? ? '' : "#{scheme}:"
       end
     end
   end
