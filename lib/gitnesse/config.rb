@@ -5,7 +5,8 @@ module Gitnesse
     include Singleton
 
     ConfigStruct = Struct.new :repository_url, :features_dir, :branch,
-                              :annotate_results, :identifier
+                              :annotate_results, :identifier,
+                              :image_scheme
 
     # Config Options:
     #
@@ -18,6 +19,8 @@ module Gitnesse
     # identifier       - if annotate_results is checked, an identifier to use
     #                    to indicate who ran the cukes.
     #                    e.g. "Uncle Bob's MacBook Air"
+    # image_scheme     - if annotate_results is checked, a scheme to use to
+    #                    generate result image URLs
 
     @@config = ConfigStruct.new
 

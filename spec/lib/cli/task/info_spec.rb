@@ -11,6 +11,7 @@ Current Gitnesse Configuration:
             branch - master
   annotate_results - [not set]
         identifier - [not set]
+      image_scheme - [not set]
       EOS
     end
 

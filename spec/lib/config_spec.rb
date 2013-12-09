@@ -9,7 +9,8 @@ module Gitnesse
         branch: 'master',
         identifier: nil,
         features_dir: 'features',
-        repository_url: nil
+        repository_url: nil,
+        image_scheme: nil
       }
     end
 
