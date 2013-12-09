@@ -64,45 +64,31 @@ module Gitnesse
         expect(page.read).to eq Support.wiki_feature_with_annotations
       end
 
-      context "when image_scheme is not set" do
-        it "does not set a URL scheme for result images" do
-          page.append_result('Divide two numbers', :passed)
-          page.read.split("\n").tap do |lines|
-            lines.each do |line|
-              if line =~ /!\[\]\((.*)\)/
-                expect(URI.parse($1).scheme).to be_nil
-              end
-            end
-          end
-        end
+      it "uses no scheme for result images when image_scheme is not set" do
+        page.append_result('Divide two numbers', :passed)
+        imglist = page.read.split("\n").
+          map {|line| line =~ /!\[\]\((.*)\)/ && $1}.
+          select {|line| !line.nil?}
+        imglist.each {|img| expect(URI.parse(img).scheme).to be_nil}
       end
 
-      context "when image_scheme is http" do
-        it "uses http for result images" do
-          Config.instance.image_scheme = 'http'
-          page.append_result('Divide two numbers', :passed)
-          page.read.split("\n").tap do |lines|
-            lines.each do |line|
-              if line =~ /!\[\]\((.*)\)/
-                expect(URI.parse($1).scheme).to eql('http')
-              end
-            end
-          end
-        end
+    
+      it "uses http for result images when image_scheme is set" do
+        Config.instance.image_scheme = 'http'
+        page.append_result('Divide two numbers', :passed)
+        imglist = page.read.split("\n").
+          map {|line| line =~ /!\[\]\((.*)\)/ && $1}.
+          select {|line| !line.nil?}
+        imglist.each {|img| expect(URI.parse(img).scheme).to eql('http')}
       end
 
-      context "when image_scheme is https" do
-        it "uses https for result images" do
-          Config.instance.image_scheme = 'https'
-          page.append_result('Divide two numbers', :passed)
-          page.read.split("\n").tap do |lines|
-            lines.each do |line|
-              if line =~ /!\[\]\((.*)\)/
-                expect(URI.parse($1).scheme).to eql('https')
-              end
-            end
-          end
-        end
+      it "uses https for result images" do
+        Config.instance.image_scheme = 'https'
+        page.append_result('Divide two numbers', :passed)
+        imglist = page.read.split("\n").
+          map {|line| line =~ /!\[\]\((.*)\)/ && $1}.
+          select {|line| !line.nil?}
+        imglist.each {|img| expect(URI.parse(img).scheme).to eql('https')}
       end
     end
   end

@@ -79,6 +79,9 @@ available configuration options are:
   results to wiki pages when `gitnesse run` is called. Defaults to `false`.
 - **identifier** - If annotate_results is true, an identifier to use to indicate
   who ran the results. e.g. `Uncle Bob's Laptop`.
+- **image_scheme** - If set, the scheme in question will be prepended to the
+  result set image URLs. This is useful for non-GitHub wikis (specifically,
+  GitLab)
 
 ## Tasks
 
