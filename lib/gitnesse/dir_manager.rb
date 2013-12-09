@@ -27,10 +27,10 @@ module Gitnesse
         File.directory? project_dir
       end
 
-      private
-      # Private: Constructs project dir path in ~/.gitnesse folder
+      # Public: Constructs project dir path in ~/.gitnesse folder
       #
       # Returns a string path
+      # TODO: Refactor uses of this so it can be made private.
       def project_dir
         @project_dir ||= begin
           "#{Dir.home(Etc.getlogin)}/.gitnesse/#{File.basename(Dir.pwd)}"
