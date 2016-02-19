@@ -55,7 +55,7 @@ module Gitnesse
       @wiki.repo.add(page.wiki_path)
     end
 
-    def filename_for(scenario)
+    def self.filename_for(scenario)
       scenario.respond_to?(:file) ? scenario.file : scenario.location.file
     end
   end
